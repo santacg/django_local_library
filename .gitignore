@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -163,4 +164,4 @@ cython_debug/
 *.bak
 
 # Database
-*.sqlite3
+*.postgresql
