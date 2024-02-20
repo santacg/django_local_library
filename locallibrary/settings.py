@@ -28,8 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,12 +78,29 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 #at the o.s. level: export DATABASE_URL =
 # ’postgres://alumnodb:alumnodb@localhost:5432/psi’
 
+# To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
+
 DATABASES = {
-    'default': {dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),}
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'psi',
+    'USER': 'santacg',
+    'PASSWORD': 'GVWP1SpJf3sF',
+    'HOST': 'ep-green-river-a2l34t6y.eu-central-1.aws.neon.tech',
+    'PORT': '5432',
+    'OPTIONS': {'sslmode': 'require'},
+  }
 }
 
-db_from_env = dj_database_url.config(default='postgres://alumnodb:alumnodb@localhost:5432/psi', conn_max_age=500) 
-DATABASES['default'].update(db_from_env)
+POSTGRESQL_URL = 'postgresql://alumnodb:alumnodb@localhost:5432/psi'
+NEON_URL = 'postgresql://santacg:GVWP1SpJf3sF@ep-green-river-a2l34t6y.eu-central-1.aws.neon.tech/psi?sslmode=require'
+
+# To run the tests: export TESTING=1, or to use the app: unset TESTING
+# To see the current value just type echo $TESTING
+if 'TESTING' in os.environ:
+    db_from_env = dj_database_url.config(default=POSTGRESQL_URL, conn_max_age=500)
+else:
+    db_from_env = dj_database_url.config(default=NEON_URL, conn_max_age=500)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
