@@ -85,15 +85,15 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'psi',
     'USER': 'santacg',
-    'PASSWORD': 'I30gsbeEijFf',
-    'HOST': 'ep-green-river-a2l34t6y.eu-central-1.aws.neon.tech',
+    'PASSWORD': 'H5R1XVaZngIu',
+    'HOST': 'ep-fancy-grass-a2z41tmo.eu-central-1.aws.neon.tech',
     'PORT': '5432',
     'OPTIONS': {'sslmode': 'require'},
   }
 }
 
 POSTGRESQL_URL = 'postgresql://alumnodb:alumnodb@localhost:5432/psi'
-NEON_URL = 'postgresql://santacg:I30gsbeEijFf@ep-green-river-a2l34t6y.eu-central-1.aws.neon.tech/psi?sslmode=require'
+NEON_URL = 'postgresql://santacg:H5R1XVaZngIu@ep-fancy-grass-a2z41tmo.eu-central-1.aws.neon.tech/psi?sslmode=require'
 
 # To run the tests: export TESTING=1, or to use the app: unset TESTING
 # To see the current value just type echo $TESTING
