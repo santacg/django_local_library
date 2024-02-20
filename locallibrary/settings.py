@@ -85,7 +85,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'psi',
     'USER': 'santacg',
-    'PASSWORD': '************',
+    'PASSWORD': '8ktPD9xlQYrs',
     'HOST': 'ep-old-bird-a2icx8b8.eu-central-1.aws.neon.tech',
     'PORT': '5432',
     'OPTIONS': {'sslmode': 'require'},
