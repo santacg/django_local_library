@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Borrowed Books</h1>
+  <ul>
+  {% for bookinst in bookinstance_list %}
+    <li>
+      {{ bookinst.book.title }} ({{ bookinst.borrower }} - Due back: {{ bookinst.due_back }})
+    </li>
+  {% empty %}
+    <li>No books loaned.</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
