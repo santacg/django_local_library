@@ -1,0 +1,45 @@
+.fp-list {
+  list-style: none;
+  counter-reset: list-counter;
+}
+.fp-list li {
+  counter-increment: list-counter;
+  position: relative;
+}
+.fp-list li:before {
+  content: counter(list-counter);
+  background-color: #E29D36;
+  color: #FFFFFF;  
+  top: 0;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  line-height: 25px;
+  text-align: center;
+}
+
+.login {
+   border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-color: #AF1922
+}
+
+.logout {
+   border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-color: rgba(220, 0, 0, 1);
+}

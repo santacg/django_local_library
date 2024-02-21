@@ -16,20 +16,24 @@ import os
 from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / '.env')
 
+load_dotenv(BASE_DIR / '.env') # Use only in display
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-ojeok)8$#wd-uh4q2k&p@$x=rnhgf)+%ztm19y(k05m0tjc-=6'
-# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-&psk#na5l=p3q8_a+-$4w1f^lt3lx1c@d*p4x$ymm_rn7pwb87')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+                                                                       
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
 ALLOWED_HOSTS = ['*']
+
+
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,23 +89,25 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'psi',
     'USER': 'santacg',
-    'PASSWORD': '8ktPD9xlQYrs',
-    'HOST': 'ep-old-bird-a2icx8b8.eu-central-1.aws.neon.tech',
+    'PASSWORD': 'pYBJSv17gUnu',
+    'HOST': 'ep-yellow-poetry-a27t4okb.eu-central-1.aws.neon.tech',
     'PORT': '5432',
     'OPTIONS': {'sslmode': 'require'},
   }
 }
 
 POSTGRESQL_URL = 'postgresql://alumnodb:alumnodb@localhost:5432/psi'
-NEON_URL = 'postgresql://santacg:8ktPD9xlQYrs@ep-old-bird-a2icx8b8.eu-central-1.aws.neon.tech/psi?sslmode=require'
+NEON_URL = 'postgresql://santacg:pYBJSv17gUnu@ep-yellow-poetry-a27t4okb.eu-central-1.aws.neon.tech/psi?sslmode=require'
+
 # To run the tests: export TESTING=1, or to use the app: unset TESTING
+# TESTING = 1
+
 # To see the current value just type echo $TESTING
 if 'TESTING' in os.environ:
     db_from_env = dj_database_url.config(default=POSTGRESQL_URL, conn_max_age=500)
 else:
     db_from_env = dj_database_url.config(default=NEON_URL, conn_max_age=500)
 
-          
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -132,13 +138,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'  #. os.path.join(BASE_DIR, 'staticfiles')
-# The URL to use when referring to static files (where they will be served from)
-STATIC_URL = '/static/'
+STATIC_URL = "static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "catalog/static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -146,5 +153,3 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
